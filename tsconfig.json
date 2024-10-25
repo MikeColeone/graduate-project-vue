@@ -1,11 +1,15 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "lib": ["esnext", "dom"],
+    "types": ["vite/client"] // 如果使用 Vite 作为构建工具
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
