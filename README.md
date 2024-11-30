@@ -10,7 +10,6 @@
 
 # Extends
 
-
 ## Project Setup
 
 ```sh
@@ -37,6 +36,14 @@ npm run lint
 
 ## UPDATE
 
+2024-11-30
+
+整合Element-plus，完善登陆界面 使用axios替换原生的fetch发请求
+
+```js
+npm install axios
+```
+
 2024-10-18
 
 运行npm run dev出现错误
@@ -50,16 +57,12 @@ npm run lint
 
 原因：提高效率减少了从中央仓库拉取依赖的时间 和较高的灵活性
 
-
 `<br/>`
 
 **Network（网络）** ：
 网络地址指的是当前设备在局域网中的 IP 地址，其他与该设备同一网络的设备可以通过这个地址访问你的开发服务器。这个地址通常用来在局域网中测试，比如在手机或其他设备上查看效果。
 
-
 'User' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.ts-
-
-
 
 - 指的是必须使用type-only的方式启动 确保编译的时候
 
