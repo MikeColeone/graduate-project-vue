@@ -1,10 +1,3 @@
-/*
-部门
-用户
-过程
-子项
-*/
-
 export interface User {
   id?: string;
   name?: string;
@@ -14,4 +7,8 @@ export interface User {
   description_id?: string;
   //判断用户身份
   role?: string;
+}
+
+export interface Department {
+  id?: string;
 }

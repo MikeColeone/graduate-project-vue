@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const handleClose = () => {};
+const handleOpen = () => {};
+</script>
 <template>
   <div>
     <el-menu

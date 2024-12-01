@@ -36,6 +36,20 @@ npm run lint
 
 ## UPDATE
 
+2024-12-1
+
+解析token
+
+```js
+npm install jwt-decode
+```
+
+mock数据
+
+```js
+npm install axios-mock-adapter --save-dev
+```
+
 2024-11-30
 
 整合Element-plus，完善登陆界面 使用axios替换原生的fetch发请求

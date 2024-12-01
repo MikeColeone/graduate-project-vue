@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import type { User } from "../../types";
+import jwt_decode from "jwt-decode";
 import { ref } from "vue";
+import service from "../../api/login";
 import { User as UserIcon, Lock } from "@element-plus/icons-vue";
 import { useRouter } from "vue-router";
-
-// 创建响应式对象
+// 创建响应式对象 用户名 密码 角色
 const loginForm = ref({
   username: "",
   password: "",
+  role: "",
 });
 
 // 表单验证规则
@@ -35,27 +37,26 @@ const onSubmit = () => {
   if (loginFormRef.value != null)
     loginFormRef.value.validate((valid: any) => {
       if (valid) {
-        request.post("/login", data.value.form);
-        if (
-          loginForm.value.username === "admin" &&
-          loginForm.value.password === "admin"
-        ) {
-          localStorage.setItem("userRole", "admin");
-          router.push("/admin");
-        } else if (
-          loginForm.value.username === "user" &&
-          loginForm.value.password === "user"
-        ) {
-          localStorage.setItem("userRole", "user");
-          router.push("/user");
-        } else {
-          alert("Invalid username or password");
-        }
-        alert("Login successful");
-      } else {
-        console.log("error submit!");
-        return false;
-      }
+        service.post("/api/auth/login", loginFormRef.value).then((res)=>{
+          const token = res.token;
+
+          if(token){
+            localStorage.setItem("token",token);
+            //解析出角色信息
+            const decodeToken = jwt_decode(token);
+            const userRole = decodeToken.role;
+
+            //存储角色信息
+            localStorage.setItem("userRole",userRole);
+            if(userRole=="admin") router.push("./admin")
+            else if(userRole=="student") router.push("/student");
+            else if(userRole=="teacher") router.push("/teacher");
+            else{
+              alert("无效身份")
+            }
+          }
+        })
+
     });
 };
 </script>

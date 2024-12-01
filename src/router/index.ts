@@ -7,9 +7,17 @@ const routes = [
     component: () => import("../views/login/LoginView.vue"),
   },
   {
-    path: "/login",
-    name: "login",
-    component: () => import("../views/login/LoginView.vue"),
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/admin/indexView.vue"),
+    beforeEnter: (to: any, from: any, next: (arg0: string) => void) => {
+      const role = localStorage.getItem("userRole");
+      if (role == "admin") {
+        next("/admin");
+      } else {
+        next("/");
+      }
+    },
   },
 ];
 

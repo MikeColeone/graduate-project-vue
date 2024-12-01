@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-
+import LoadingView from "./components/LoadingView.vue";
 const router = useRouter();
 
-// 在应用加载时检查是否存在身份信息
 onMounted(() => {
   const userRole = localStorage.getItem("userRole");
   if (userRole) {
@@ -12,12 +11,19 @@ onMounted(() => {
       router.push("/admin"); // 跳转到管理员页面
     } else if (userRole === "user") {
       router.push("/user"); // 跳转到用户页面
+    } else if (userRole == "teacher") {
+      router.push("teacher");
     }
   }
 });
 </script>
 <template>
-  <div>
-    <RouterView />
-  </div>
+  <suspense>
+    <template #default>
+      <RouterView />
+    </template>
+    <template #fallback>
+      <LoadingView />
+    </template>
+  </suspense>
 </template>
