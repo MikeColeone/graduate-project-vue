@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
-import LoadingView from "./components/LoadingView.vue";
-const router = useRouter();
-
-onMounted(() => {
-  const userRole = localStorage.getItem("userRole");
-  if (userRole) {
-    if (userRole === "admin") {
-      router.push("/admin"); // 跳转到管理员页面
-    } else if (userRole === "user") {
-      router.push("/user"); // 跳转到用户页面
-    } else if (userRole == "teacher") {
-      router.push("teacher");
-    }
-  }
-});
+import { Loading } from "@element-plus/icons-vue";
+import MainView from "./views/MainView.vue";
 </script>
 <template>
-  <suspense>
-    <template #default>
-      <RouterView />
-    </template>
-    <template #fallback>
-      <LoadingView />
-    </template>
-  </suspense>
+  <div>
+    <suspense>
+      <template #default>
+        <RouterView />
+      </template>
+      <template #fallback>
+        <Loading />
+      </template>
+    </suspense>
+  </div>
 </template>
+
+<style>
+* {
+  margin: 0px;
+  padding: 0px;
+}
+</style>

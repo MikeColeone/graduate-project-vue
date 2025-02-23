@@ -1,12 +1,42 @@
+export interface ResultVO<T> {
+  code?: number; // 状态码
+  message?: string; // 返回消息
+  data?: T; // 泛型数据类型
+  timestamp?: number; // 时间戳
+}
+
 export interface User {
   id?: string;
   name?: string;
-  password?: string;
   number?: string;
-  description?: string;
-  description_id?: string;
-  //判断用户身份
-  role?: string;
+  password?: string;
+  groupNumber?: number;
+  student?: Student;
+  teacher?: Teacher;
+  departmentId?: string;
+  insertTime?: string;
+  updateTime?: string;
+}
+
+export interface Student {
+  teacherId?: string;
+  teacherName?: string;
+  queueNumber?: number;
+  projectTitle?: string;
+}
+
+export interface StudentDTO {
+  number?: string;
+  groupNumber?: number;
+  queueNumber?: number;
+  projectTitle?: string;
+}
+
+export interface Teacher {
+  total?: number;
+  A?: number;
+  B?: number;
+  C?: number;
 }
 
 export interface Department {
