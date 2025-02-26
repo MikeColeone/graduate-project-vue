@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Aside from "../views/layout/Aside.vue";
 import Header from "../views/layout/Header.vue";
+import { RouterView } from "vue-router";
 </script>
 <template>
   <div class="common-layout">

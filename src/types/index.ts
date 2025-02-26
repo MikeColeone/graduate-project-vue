@@ -1,3 +1,8 @@
+export const RoleType = {
+  STUDENT_ROLE: "qpCf",
+  TEACHER_ROLE: "kU4T",
+  ADMIN_ROLE: "R2md",
+};
 export interface ResultVO<T> {
   code?: number; // 状态码
   message?: string; // 返回消息

@@ -22,6 +22,8 @@ const store = useStore();
 
 <template>
   <div>
+    <!-- ==================================== -->
+    <!-- {{ props.menuData }} -->
     <template
       v-for="(item, index) in props.menuData"
       :key="`${props.index}-${item.meta.id}`"

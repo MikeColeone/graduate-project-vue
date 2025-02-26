@@ -7,9 +7,13 @@ import { useStore } from "vuex";
 const handleOpen = () => {};
 const handleClose = () => {};
 const store = useStore();
+console.log(store);
 const isCollapse = computed(() => store.state.menu.isCollapse);
 const router = useRouter();
-const menuData = reactive(router.options.routes[0]?.children || []);
+const menuData = reactive(router.options.routes[1]?.children || []);
+console.log(menuData);
+
+console.log(router.options.routes[1]);
 </script>
 <template>
   <div>

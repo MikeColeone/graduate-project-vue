@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import router from '@/router'
 import { useRoute, useRouter } from "vue-router";
 import { computed } from "vue";
 import { useStore } from "vuex";
@@ -64,6 +63,24 @@ const closeTad = (item: { path: string }, index: number) => {
             /></el-icon>
           </li>
         </ul>
+      </div>
+
+      <!-- 头像位置 -->
+      <div class="example-showcase">
+        <el-dropdown trigger="click">
+          <span class="el-dropdown-link">
+            <el-avatar
+              shape="square"
+              size="small"
+              src="https://cube.elemecdn.com/6/9c/03f4d5c4b4f0f7b4e3b3b6e4e4e7dpng.png"
+            ></el-avatar>
+            <!-- <span>{{ form.name }}</span> -->
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>

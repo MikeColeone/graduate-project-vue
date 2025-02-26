@@ -3,8 +3,7 @@ import {
   createWebHashHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import { ElMessage } from "element-plus";
-
+import * as consty from "../types/index";
 const routes: RouteRecordRaw[] = [
   {
     path: "/login",
@@ -13,7 +12,15 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
+    name: "home",
     component: () => import("../views/MainView.vue"),
+    meta: {
+      perssion: [
+        consty.RoleType.ADMIN_ROLE,
+        consty.RoleType.TEACHER_ROLE,
+        consty.RoleType.STUDENT_ROLE,
+      ],
+    },
     children: [
       {
         path: "dashboard",
@@ -25,29 +32,23 @@ const routes: RouteRecordRaw[] = [
           icon: "Platform",
           path: "/dashboard",
           describe: "用于展示当前系统中的统计数据和当前任务的进行情况",
-        },
-      },
-      {
-        path: "personal",
-        name: "PersonalCenter",
-        component: () => import("../views/user/personal/indexView.vue"),
-        meta: {
-          id: "2",
-          name: "个人中心",
-          icon: "User",
-          path: "/personal",
-          describe: "检测到密码和账号相同时",
+          perssion: [
+            consty.RoleType.ADMIN_ROLE,
+            consty.RoleType.TEACHER_ROLE,
+            consty.RoleType.STUDENT_ROLE,
+          ],
         },
       },
       {
         path: "admin",
         name: "AdminManagement",
         meta: {
-          id: "3",
+          id: "2",
           name: "管理",
           icon: "Document",
           path: "/department-management",
           describe: "用于专业管理包括上传学生教师表格",
+          perssion: [consty.RoleType.ADMIN_ROLE],
         },
         children: [
           {
@@ -60,6 +61,8 @@ const routes: RouteRecordRaw[] = [
               icon: "BellFilled",
               path: "/departments",
               describe: "用于管理专业包括专业人员调动",
+              perssion: [
+                consty.RoleType.ADMIN_ROLE
             },
           },
         ],
@@ -68,11 +71,14 @@ const routes: RouteRecordRaw[] = [
         path: "teacher",
         name: "TeacherManagement",
         meta: {
-          id: "4",
+          id: "3",
           name: "教师功能",
           icon: "Avatar",
           path: "/teacher",
           describe: "用于表示实验室人员管理",
+          perssion: [
+            consty.RoleType.TEACHER_ROLE
+          ],
         },
         children: [
           {
@@ -85,6 +91,10 @@ const routes: RouteRecordRaw[] = [
               icon: "UserFilled",
               path: "/process",
               describe: "用于上传过程和过程子项",
+              perssion: [
+                consty.RoleType.TEACHER_ROLE
+              ],
+              
             },
           },
           {
@@ -97,6 +107,9 @@ const routes: RouteRecordRaw[] = [
               icon: "User",
               path: "/group",
               describe: "获取当前自己指导的小组的信息",
+              perssion: [
+                consty.RoleType.TEACHER_ROLE
+              ],
             },
           },
           {
@@ -109,6 +122,9 @@ const routes: RouteRecordRaw[] = [
               icon: "User",
               path: "/score",
               describe: "获取学生的过程评分",
+              perssion: [
+                consty.RoleType.TEACHER_ROLE
+              ],
             },
           },
         ],
@@ -117,7 +133,7 @@ const routes: RouteRecordRaw[] = [
         path: "student",
         name: "StudentFunctions",
         meta: {
-          id: "5",
+          id: "4",
           name: "学生功能",
           icon: "User",
         },
@@ -131,6 +147,9 @@ const routes: RouteRecordRaw[] = [
               name: "上传文件",
               icon: "User",
               describe: "用于学生上传文件",
+              perssion: [
+                consty.RoleType.STUDENT_ROLE
+              ],
             },
           },
           {
@@ -142,6 +161,9 @@ const routes: RouteRecordRaw[] = [
               name: "答辩信息",
               icon: "User",
               describe: "用于学生查看答辩信息",
+              perssion: [
+                consty.RoleType.STUDENT_ROLE
+              ],
             },
           },
         ],
@@ -151,7 +173,15 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/403",
     name: "Forbidden",
-    component: () => import("@/views/components/403.vue"),
+    component: () => import("../views/403.vue"),
+    meta: {
+      describe: "无访问权限",
+      perssion: [
+        consty.RoleType.STUDENT_ROLE,
+        consty.RoleType.TEACHER_ROLE,
+        consty.RoleType.ADMIN_ROLE,
+      ],
+    },
   },
 ];
 
@@ -160,39 +190,39 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const user = JSON.parse(localStorage.getItem("xm-user") || "{}");
-  const hasRedirected = localStorage.getItem("hasRedirected");
+// router.beforeEach((to, from, next) => {
+//   const user = JSON.parse(localStorage.getItem("xm-user") || "{}");
+//   const hasRedirected = localStorage.getItem("hasRedirected");
 
-  if (
-    user.password === user.account &&
-    user.role === "teacher" &&
-    to.path !== "/profile" &&
-    !hasRedirected
-  ) {
-    ElMessage.error("请修改密码");
-    localStorage.setItem("hasRedirected", "true");
-    next("/profile");
-    return;
-  }
+//   if (
+//     user.password === user.account &&
+//     user.role === "teacher" &&
+//     to.path !== "/profile" &&
+//     !hasRedirected
+//   ) {
+//     ElMessage.error("请修改密码");
+//     localStorage.setItem("hasRedirected", "true");
+//     next("/profile");
+//     return;
+//   }
 
-  if (to.path === "/admin/manage" && user.role !== "admin") {
-    ElMessage.error("无权限访问");
-    next("/403");
-    return;
-  }
+//   if (to.path === "/admin/manage" && user.role !== "admin") {
+//     ElMessage.error("无权限访问");
+//     next("/403");
+//     return;
+//   }
 
-  if (!user.role && to.path !== "/login") {
-    next("/login");
-    return;
-  }
+//   if (!user.role && to.path !== "/login") {
+//     next("/login");
+//     return;
+//   }
 
-  if (to.path === "/") {
-    next(user.role === "user" ? "/dashboard" : "/login");
-    return;
-  }
+//   if (to.path === "/") {
+//     next(user.role === "user" ? "/dashboard" : "/login");
+//     return;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 export default router;
