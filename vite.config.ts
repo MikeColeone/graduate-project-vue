@@ -9,7 +9,7 @@ export default defineConfig({
   // server: {
   //   proxy: {
   //     "/api/": {
-  //       target: "http://localhost:8088/2022212829", // 后端服务器地址
+  //       target: "http://localhost:8080/",
   //       configure: (proxy) => {
   //         proxy.on("proxyRes", (proxyRes, req, res) => {
   //           const token = proxyRes.headers["token"];

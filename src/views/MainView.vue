@@ -2,6 +2,7 @@
 import Aside from "../views/layout/Aside.vue";
 import Header from "../views/layout/Header.vue";
 import { RouterView } from "vue-router";
+import AdminView from "../views/user/admins/indexView.vue";
 </script>
 <template>
   <div class="common-layout">
@@ -9,7 +10,8 @@ import { RouterView } from "vue-router";
       <el-aside width:auto height="100%"><Aside /></el-aside>
       <el-container>
         <el-header><Header></Header></el-header>
-        <el-main><RouterView /></el-main>
+        <!-- <el-main><RouterView /> </el-main> -->
+        <el-main><AdminView /> </el-main>
       </el-container>
     </el-container>
   </div>

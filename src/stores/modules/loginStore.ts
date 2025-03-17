@@ -4,10 +4,13 @@ const state = {
 };
 //更新角色
 const mutations = {
-  setAuthenticated(state, isAuthenticated: boolean) {
+  setAuthenticated(
+    state: { isAuthenticated: boolean },
+    isAuthenticated: boolean
+  ) {
     state.isAuthenticated = isAuthenticated; //登陆成功的时更新状态
   },
-  setRole(state, role: string) {
+  setRole(state: { role: string }, role: string) {
     state.role = role;
   },
 };

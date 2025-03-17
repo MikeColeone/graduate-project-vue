@@ -10,7 +10,7 @@ service.interceptors.request.use(
   (config) => {
     config.headers["Content-Type"] = "application/json";
     const token = localStorage.getItem("token");
-    // console.log('Request token:', token)
+    console.log("Request token:", token);
     if (token) {
       config.headers["token"] = token; // 设置请求头
     }

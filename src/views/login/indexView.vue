@@ -13,7 +13,6 @@ const isAutoLogin = ref(false);
 const isRemember = ref(false);
 
 const formRef = ref<FormInstance | null>(null);
-// 规则
 const rules = {
   account: [
     {
@@ -27,14 +26,6 @@ const rules = {
 };
 
 const login = async () => {
-  // localStorage.clear();
-
-  // localStorage.removeItem("account");
-  // localStorage.removeItem("password");
-  // if (isAutoLogin.value) {
-  //   localStorage.setItem("token", "123456");
-  // }
-
   console.log("formData account:", formData.value.account);
   console.log("login执行了");
   if (isRemember.value) {
@@ -57,7 +48,8 @@ const login = async () => {
 
 const loginSuccess = (res: AxiosResponse<any, any>) => {
   console.log("登录成功", res);
-  if (res.code === 200) {
+  if (res.data.code === 200) {
+    localStorage.setItem("xm-user", JSON.stringify(res.data));
     if (isAutoLogin.value) {
       localStorage.setItem("token", res.data.token);
     }
@@ -69,36 +61,7 @@ const loginSuccess = (res: AxiosResponse<any, any>) => {
   }
 };
 
-const isState = () => {
-  console.log("isAutoLogin:", isAutoLogin.value);
-  console.log("isRemember:", isRemember.value);
-};
-
-onMounted(() => {
-  localStorage.clear(); // 清除 localStorage
-  console.log("localStorage cleared");
-
-  const storedAccount = localStorage.getItem("account");
-  const storedPassword = localStorage.getItem("password");
-  console.log("Stored account:", storedAccount);
-  console.log("Stored password:", storedPassword);
-
-  if (storedAccount && storedPassword) {
-    formData.value.account = storedAccount as string;
-    formData.value.password = storedPassword as string;
-  }
-
-  // 添加日志，查看 formData 的值
-  console.log("formData account:", formData.value.account);
-  console.log("formData password:", formData.value.password);
-});
-
-// onMounted(() => {
-//   if (localStorage.getItem("account") && localStorage.getItem("password")) {
-//     formData.value.account = localStorage.getItem("account") as string;
-//     formData.value.password = localStorage.getItem("password") as string;
-//   }
-// });
+onMounted(() => {});
 </script>
 <template>
   <div>

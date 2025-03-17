@@ -4,6 +4,7 @@ import {
   type RouteRecordRaw,
 } from "vue-router";
 import * as consty from "../types/index";
+import { ElMessage } from "element-plus";
 const routes: RouteRecordRaw[] = [
   {
     path: "/login",
@@ -61,8 +62,7 @@ const routes: RouteRecordRaw[] = [
               icon: "BellFilled",
               path: "/departments",
               describe: "用于管理专业包括专业人员调动",
-              perssion: [
-                consty.RoleType.ADMIN_ROLE
+              perssion: [consty.RoleType.ADMIN_ROLE],
             },
           },
         ],
@@ -76,9 +76,7 @@ const routes: RouteRecordRaw[] = [
           icon: "Avatar",
           path: "/teacher",
           describe: "用于表示实验室人员管理",
-          perssion: [
-            consty.RoleType.TEACHER_ROLE
-          ],
+          perssion: [consty.RoleType.TEACHER_ROLE],
         },
         children: [
           {
@@ -91,10 +89,7 @@ const routes: RouteRecordRaw[] = [
               icon: "UserFilled",
               path: "/process",
               describe: "用于上传过程和过程子项",
-              perssion: [
-                consty.RoleType.TEACHER_ROLE
-              ],
-              
+              perssion: [consty.RoleType.TEACHER_ROLE],
             },
           },
           {
@@ -107,9 +102,7 @@ const routes: RouteRecordRaw[] = [
               icon: "User",
               path: "/group",
               describe: "获取当前自己指导的小组的信息",
-              perssion: [
-                consty.RoleType.TEACHER_ROLE
-              ],
+              perssion: [consty.RoleType.TEACHER_ROLE],
             },
           },
           {
@@ -122,9 +115,7 @@ const routes: RouteRecordRaw[] = [
               icon: "User",
               path: "/score",
               describe: "获取学生的过程评分",
-              perssion: [
-                consty.RoleType.TEACHER_ROLE
-              ],
+              perssion: [consty.RoleType.TEACHER_ROLE],
             },
           },
         ],
@@ -147,9 +138,7 @@ const routes: RouteRecordRaw[] = [
               name: "上传文件",
               icon: "User",
               describe: "用于学生上传文件",
-              perssion: [
-                consty.RoleType.STUDENT_ROLE
-              ],
+              perssion: [consty.RoleType.STUDENT_ROLE],
             },
           },
           {
@@ -161,9 +150,7 @@ const routes: RouteRecordRaw[] = [
               name: "答辩信息",
               icon: "User",
               describe: "用于学生查看答辩信息",
-              perssion: [
-                consty.RoleType.STUDENT_ROLE
-              ],
+              perssion: [consty.RoleType.STUDENT_ROLE],
             },
           },
         ],
@@ -191,38 +178,43 @@ const router = createRouter({
 });
 
 // router.beforeEach((to, from, next) => {
-//   const user = JSON.parse(localStorage.getItem("xm-user") || "{}");
-//   const hasRedirected = localStorage.getItem("hasRedirected");
+//   try {
+//     const user = JSON.parse(localStorage.getItem("xm-user") || "{}");
 
-//   if (
-//     user.password === user.account &&
-//     user.role === "teacher" &&
-//     to.path !== "/profile" &&
-//     !hasRedirected
-//   ) {
-//     ElMessage.error("请修改密码");
-//     localStorage.setItem("hasRedirected", "true");
-//     next("/profile");
-//     return;
-//   }
+//     // 没有定义权限的路由直接放行
+//     if (!to.meta.perssion) {
+//       next();
+//       return;
+//     }
 
-//   if (to.path === "/admin/manage" && user.role !== "admin") {
-//     ElMessage.error("无权限访问");
-//     next("/403");
-//     return;
-//   }
+//     const currentRole = user.role;
+//     console.log("currentRole", currentRole);
 
-//   if (!user.role && to.path !== "/login") {
+//     // 检查当前角色是否在目标路由允许的权限列表中
+//     const hasPermission = to.meta.perssion.includes(currentRole);
+
+//     if (hasPermission) {
+//       // 如果用户密码和账号相同，提示修改密码并重定向到首页
+//       if (user.password === user.account) {
+//         ElMessage.error("请于个人资料处修改密码");
+//         next("/");
+//       } else {
+//         next();
+//       }
+//     } else {
+//       // 没有权限，清除本地存储，提示重新登录并重定向到登录页
+//       localStorage.clear();
+//       ElMessage.error("登录信息已过期，请重新登录");
+//       next("/login");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     ElMessage.error("系统错误");
+//     // 清除本地存储
+//     localStorage.clear();
+//     // 重定向到登录页
 //     next("/login");
-//     return;
 //   }
-
-//   if (to.path === "/") {
-//     next(user.role === "user" ? "/dashboard" : "/login");
-//     return;
-//   }
-
-//   next();
 // });
 
-export default router;
+// export default router;

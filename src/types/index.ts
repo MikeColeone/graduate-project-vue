@@ -47,3 +47,8 @@ export interface Teacher {
 export interface Department {
   id?: string;
 }
+
+export interface LoginDTO {
+  account?: string;
+  password?: string;
+}

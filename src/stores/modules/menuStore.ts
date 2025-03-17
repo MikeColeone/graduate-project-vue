@@ -1,8 +1,12 @@
+//菜单状态管理
+
+//是否展开和选中的菜单
 const state = {
   isCollapse: false,
   selectMenu: [],
 };
 
+//实现展开和选中菜单
 const mutations = {
   collapseMenu(state: { isCollapse: boolean }) {
     state.isCollapse = !state.isCollapse;

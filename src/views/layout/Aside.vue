@@ -21,7 +21,7 @@ console.log(router.options.routes[1]);
       :style="{ width: !isCollapse ? '230px' : '68px' }"
       style="border-radius: 5px"
       active-text-color="#ffd04b"
-      background-color="#545c64"
+      background-color="blue"
       class="aside-mystyle"
       default-active="2"
       text-color="#fff"
